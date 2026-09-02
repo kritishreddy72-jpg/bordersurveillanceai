@@ -1,0 +1,584 @@
+/* ==========================================================================
+   AURA-BORDER AI - Human-Crafted Defense Command & Control UI Components
+   Multi-Camera Quad-Grid, Dynamic Slew-to-Cue, Seismic Alarms, and Radar HUD
+   ========================================================================== */
+
+/* Multi-Camera Grid Container */
+.camera-grid-quad {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.camera-grid-single {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+@media (max-width: 950px) {
+  .camera-grid-quad {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Individual Camera Tile Card */
+.camera-card {
+  background: rgba(13, 23, 42, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.camera-card:hover {
+  border-color: rgba(56, 189, 248, 0.45);
+}
+
+/* Active Alert States on Camera Cards */
+.camera-card.camera-alert-active {
+  border-color: var(--accent-red) !important;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.6) !important;
+  animation: pulseCardRed 0.8s infinite alternate;
+}
+
+.camera-card.camera-tunnel-active {
+  border-color: var(--accent-purple) !important;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.6) !important;
+  animation: pulseCardPurple 0.8s infinite alternate;
+}
+
+@keyframes pulseCardRed {
+  0% { border-color: rgba(239, 68, 68, 0.5); }
+  100% { border-color: rgba(239, 68, 68, 1); }
+}
+
+@keyframes pulseCardPurple {
+  0% { border-color: rgba(168, 85, 247, 0.5); }
+  100% { border-color: rgba(168, 85, 247, 1); }
+}
+
+/* Camera Card Header */
+.cam-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(15, 23, 42, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cam-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cam-id-tag {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: var(--accent-cyan);
+  background: rgba(0, 240, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 240, 255, 0.25);
+}
+
+.cam-name-text {
+  font-size: 0.78rem;
+  color: #f1f5f9;
+  font-weight: 600;
+}
+
+/* Video Canvas Viewport */
+.video-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #020617;
+  overflow: hidden;
+}
+
+.feed-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* Scanline Effect */
+.scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.2) 50%
+  );
+  background-size: 100% 3px;
+  opacity: 0.5;
+  z-index: 5;
+}
+
+/* Alert Banner Styles */
+.alert-banner {
+  display: none;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  border-bottom: 2px solid #fff;
+  position: relative;
+  z-index: 99;
+}
+
+.alert-banner.active {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.alert-banner.banner-human {
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.95), rgba(185, 28, 28, 0.95), rgba(239, 68, 68, 0.95));
+  box-shadow: 0 0 30px rgba(239, 68, 68, 0.8);
+  animation: strobeAlertRed 0.6s infinite alternate ease-in-out;
+}
+
+.alert-banner.banner-tunnel {
+  background: linear-gradient(90deg, rgba(168, 85, 247, 0.95), rgba(126, 34, 206, 0.95), rgba(168, 85, 247, 0.95));
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.8);
+  animation: strobeAlertPurple 0.6s infinite alternate ease-in-out;
+}
+
+@keyframes strobeAlertRed {
+  0% { background-color: rgba(239, 68, 68, 0.95); }
+  100% { background-color: rgba(127, 29, 29, 0.95); }
+}
+
+@keyframes strobeAlertPurple {
+  0% { background-color: rgba(168, 85, 247, 0.95); }
+  100% { background-color: rgba(88, 28, 135, 0.95); }
+}
+
+/* AVF Interactive Split Slider */
+.avf-slider-wrapper {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 8;
+}
+
+.split-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 10px var(--accent-cyan);
+  pointer-events: auto;
+  cursor: ew-resize;
+}
+
+.split-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  background: #0f172a;
+  border: 2px solid var(--accent-cyan);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-cyan);
+  font-size: 9px;
+  box-shadow: var(--hud-glow);
+}
+
+/* View Mode Bar / Camera Selector */
+.camera-view-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.85);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cam-filter-tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.cam-filter-btn {
+  padding: 5px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+}
+
+.cam-filter-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.cam-filter-btn.active {
+  background: rgba(0, 240, 255, 0.15);
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+  box-shadow: var(--hud-glow);
+}
+
+/* Spectrogram & Geophone Array Section */
+.spectrogram-container {
+  position: relative;
+  width: 100%;
+  height: 130px;
+  background: #030712;
+  border-radius: 6px;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  overflow: hidden;
+}
+
+.spectrogram-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.sensor-array-strip {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 3px;
+  padding: 6px 0;
+}
+
+.geophone-node {
+  height: 24px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--text-dim);
+  transition: all 0.2s ease;
+}
+
+.geophone-node.active-drill {
+  background: rgba(168, 85, 247, 0.35);
+  border-color: var(--accent-purple);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
+  animation: pulseNode 0.5s infinite alternate;
+}
+
+@keyframes pulseNode {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+/* Underground Cross-Section */
+.underground-vis {
+  position: relative;
+  width: 100%;
+  height: 130px;
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 35%, #070b14 100%);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.ground-level {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
+}
+
+.fence-layer {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 18px;
+  background: #94a3b8;
+}
+
+.soil-stratum {
+  position: absolute;
+  left: 0;
+  right: 0;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.25);
+  padding-left: 6px;
+  pointer-events: none;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+}
+
+.tunnel-cavity {
+  position: absolute;
+  width: 32px;
+  height: 22px;
+  background: rgba(168, 85, 247, 0.35);
+  border: 1px dashed var(--accent-purple);
+  border-radius: 40% 40% 10% 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 9px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+  transition: all 0.4s ease;
+}
+
+.depth-meter {
+  position: absolute;
+  left: 6px;
+  bottom: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-dim);
+}
+
+/* Incident Feed */
+.incident-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.incident-item {
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.6);
+  border-left: 3px solid #64748b;
+  font-size: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.2s ease;
+  animation: slideInIncident 0.3s ease-out;
+}
+
+@keyframes slideInIncident {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.incident-item.human-threat {
+  border-left-color: var(--accent-red);
+  background: rgba(239, 68, 68, 0.08);
+  border-top: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.incident-item.animal-silent {
+  border-left-color: var(--accent-green);
+  background: rgba(16, 185, 129, 0.06);
+  border-top: 1px solid rgba(16, 185, 129, 0.15);
+}
+
+.incident-item.tunnel-threat {
+  border-left-color: var(--accent-purple);
+  background: rgba(168, 85, 247, 0.08);
+  border-top: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+.incident-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+}
+
+.incident-badge {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.badge-human { background: var(--accent-red); color: white; }
+.badge-animal { background: var(--accent-green); color: black; }
+.badge-tunnel { background: var(--accent-purple); color: white; }
+
+.incident-msg {
+  color: var(--text-main);
+  line-height: 1.3;
+}
+
+.incident-rule-note {
+  font-size: 0.65rem;
+  color: var(--accent-green);
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Radar & Perimeter Map */
+.radar-map-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  max-height: 240px;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, rgba(2, 6, 23, 0.95) 70%);
+  border-radius: 50%;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.radar-sweep {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(0, 240, 255, 0.35) 0deg, transparent 60deg, transparent 360deg);
+  animation: radarRotate 4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes radarRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.radar-rings {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px dashed rgba(56, 189, 248, 0.2);
+  pointer-events: none;
+}
+.radar-rings::before,
+.radar-rings::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+.radar-rings::before { width: 66%; height: 66%; }
+.radar-rings::after { width: 33%; height: 33%; }
+
+.cam-node-marker {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #00f0ff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px #00f0ff;
+  z-index: 6;
+}
+
+.cam-radius-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  background: rgba(0, 240, 255, 0.04);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 5;
+  transition: all 0.3s ease;
+}
+
+.cam-radius-ring.active-intersect {
+  border-color: #ec4899;
+  background: rgba(236, 72, 153, 0.15);
+  box-shadow: 0 0 15px rgba(236, 72, 153, 0.5);
+  animation: pulseNode 0.6s infinite alternate;
+}
+
+.radar-blip {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+  z-index: 8;
+}
+.radar-blip.human { background: var(--accent-red); box-shadow: 0 0 8px var(--accent-red); }
+.radar-blip.animal { background: var(--accent-green); box-shadow: 0 0 6px var(--accent-green); }
+.radar-blip.tunnel { 
+  background: var(--accent-purple); 
+  box-shadow: 0 0 12px var(--accent-purple);
+  animation: pulseNode 0.4s infinite alternate;
+}
+
+/* Quick Action Scenario Simulation Panel */
+.scenario-bar {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.6);
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.scenario-btn {
+  padding: 8px 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+
+.scenario-btn:hover {
+  transform: translateY(-1px);
+  color: #fff;
+}
+
+.scenario-btn.trigger-human:hover { background: rgba(239, 68, 68, 0.2); border-color: var(--accent-red); color: var(--accent-red); }
+.scenario-btn.trigger-animal:hover { background: rgba(16, 185, 129, 0.2); border-color: var(--accent-green); color: var(--accent-green); }
+.scenario-btn.trigger-tunnel:hover { background: rgba(168, 85, 247, 0.2); border-color: var(--accent-purple); color: var(--accent-purple); }
+.scenario-btn.trigger-fog:hover { background: rgba(56, 189, 248, 0.2); border-color: var(--accent-cyan); color: var(--accent-cyan); }
