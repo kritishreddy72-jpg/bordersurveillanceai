@@ -1,81 +1,75 @@
-# AURA-BORDER AI: Tactical Border Surveillance & Subsurface Defense System
+# 🛡️ AURA-BORDER AI - Autonomous Multi-Modal Border Surveillance Platform
 
-An AI Command & Control (C2) tactical defense platform and presentation system designed for next-generation border reconnaissance, subsurface tunnel digging detection, and adverse weather vision clarification.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Frontend](https://img.shields.io/badge/Frontend-HTML5%20%7C%20CSS3%20%7C%20ES6+-cyan.svg)](frontend/)
+[![Backend](https://img.shields.io/badge/Backend-FastAPI%20%7C%20Python%203.10+-green.svg)](backend/)
+[![Deploy](https://img.shields.io/badge/Deployment-Vercel%20%7C%20Netlify-purple.svg)](deployment/)
 
----
-
-## 🛡️ Core Capabilities & Requirements Implemented
-
-1. **Only Human Detection via Video Frequency & Spatial Neural AI**:
-   - Isolates human infiltrators from dynamic background noise.
-   - Computes bounding boxes, limb velocities, and posture tracking.
-   - Activates tactical audio sirens, flashing red alarm strobes, and automated Quick Reaction Force (QRF) dispatch.
-
-2. **Underground Tunnel Digging Activity via Audio Frequency**:
-   - Sub-surface Distributed Acoustic Sensing (DAS) and Geophone Array simulation (0 Hz - 4.0 kHz).
-   - Real-time Fast Fourier Transform (FFT) spectrogram & seismic waveform oscilloscope.
-   - Distinguishes manual pickaxe impacts (80 - 250 Hz rhythmic pulses) from high-speed rotary drills (1.2 - 3.5 kHz harmonics).
-   - Subterranean depth estimation (*-8.4 meters underground*).
-
-3. **Wildlife / Animal Discrimination (Silent SMS Protocol)**:
-   - Identifies quadrupeds and fauna (wolves, deer, camels, livestock).
-   - **STRICT RULE ENFORCED**: Completely suppresses tactical sirens and alarm strobes.
-   - Sends a silent SATCOM/SMS log to wildlife rangers to avoid panicking border guards.
-
-4. **AVF (Adaptive Vision Filtering) in Extreme Fog & Lightning**:
-   - Atmospheric scattering restoration based on the Koschmieder model and Dark Channel Prior (DCP) dehazing.
-   - Temporal Adaptive Clamping (AVF-TAC) to instantly suppress blinding lightning strikes and flare without losing track of targets.
-   - Interactive split-slider for live before/after comparison.
-
-5. **PPT Presentation View (`presentation.html`)**:
-   - Dedicated presentation slides mode with mathematical formulations ($I(x) = J(x)t(x) + A(1-t(x))$), system architecture block diagrams, and benchmark performance comparison tables.
+An enterprise defense Command and Control (C2) surveillance platform unifying **optical/thermal video frequency analysis**, **subsurface acoustic geophone detection (DAS)**, and **atmospheric vision filtering (AVF)** under an autonomous rule matrix.
 
 ---
 
-## 🚀 How to Run Locally
+## 📂 Segregated Project Structure
 
-### Option 1: Direct Browser Launch
-Simply double click on `index.html` or `presentation.html` in your file explorer to open it in Chrome, Edge, Firefox, or Safari.
-
-### Option 2: Local Web Server (Recommended)
-Open a terminal in this folder and run:
-```bash
-# Using Python
-python -m http.server 8000
-
-# Or using Node.js / npx
-npx serve .
 ```
-Then navigate to `http://localhost:8000` in your browser.
-
----
-
-## 🌐 How to Deploy for a Live URL (For Your PPT Link)
-
-To get a live link (e.g. `https://your-border-ai.vercel.app` or `https://username.github.io/ai-border-surveillance`) to paste into your PowerPoint slides:
-
-### Method 1: Netlify Drop (Zero Installation - 30 Seconds)
-1. Go to [https://app.netlify.com/drop](https://app.netlify.com/drop).
-2. Drag and drop this entire `ai-border-surveillance` folder onto the web page.
-3. Netlify will instantly give you a free public live link (e.g. `https://aura-border-ai.netlify.app`).
-
-### Method 2: GitHub Pages (Permanent Free Hosting)
-1. Create a new repository on [GitHub](https://github.com).
-2. Upload this folder's contents and commit to the `main` branch.
-3. Go to **Settings > Pages** in your GitHub repo and select **Deploy from Branch (main)**.
-4. Your live link will be `https://<your-username>.github.io/<repo-name>`.
-
-### Method 3: Vercel CLI
-```bash
-npx vercel
+ai-border-surveillance/
+├── frontend/                      # 🖥️ FRONTEND CLIENT LAYER
+│   ├── index.html                 # Main C2 Defense Dashboard UI
+│   ├── presentation.html          # Technical Architecture Slide Deck
+│   ├── css/                       # Tactical Glassmorphism Styling
+│   │   ├── style.css              # Base Layout & Tokens
+│   │   └── tactical-ui.css        # Quad-Grid, Radar & HUD Components
+│   └── js/                        # Client-Side Simulation & Math Engines
+│       ├── alert-system.js        # Incident Routing & Silent Wildlife SMS
+│       ├── app.js                 # Frontend Master UI Controller
+│       ├── audio-synth.js         # Web Audio API Tactical Sound Synthesizer
+│       ├── avf-filter.js          # Koschmieder DCP Fog & Flash Clamping
+│       ├── seismic-audio.js       # Fast Fourier Transform (FFT) Spectrogram
+│       └── vision-feed.js         # 4-Camera Array & CAM-MASTER Viewport
+│
+├── backend/                       # ⚙️ BACKEND & AI PROCESSING LAYER
+│   ├── server.py                  # FastAPI / WebSocket Telemetry Server
+│   ├── dsp_processor.py           # Seismic FFT & TDOA Triangulation Module
+│   ├── server.ps1                 # Lightweight Windows .NET HTTP Server
+│   └── requirements.txt           # Python Environment Dependencies
+│
+├── deployment/                    # 🚀 DEPLOYMENT & DEVOPS AUTOMATION
+│   ├── auto_git_sync.ps1          # Real-time GitHub Auto-Sync Watcher
+│   ├── start_auto_sync.bat        # 1-Click Batch Launcher for Auto-Sync
+│   ├── start_server.bat           # 1-Click Local Server Launcher
+│   └── vercel.json                # Edge Routing Configuration
+│
+├── docs/                          # 📚 DOCUMENTATION & SPECIFICATIONS
+│   ├── ARCHITECTURE.md            # System Architecture & API Specifications
+│   └── DATASETS.md                # Research Benchmark Dataset Citations
+│
+├── index.html                     # Root Entrypoint
+├── vercel.json                    # Root Vercel Edge Router
+└── README.md                      # Project Readme
 ```
-Follow the 3 quick prompts to get a fast production URL.
 
 ---
 
-## 📋 How to Link in Your PowerPoint Presentation
+## 🚀 Quick Start Guide
 
-1. In PowerPoint, create a button or text on your slide (e.g., `[ Click Here for Live AURA-BORDER AI Demo ]`).
-2. Select the text/button and press `Ctrl + K` (or `Cmd + K` on Mac).
-3. Paste your live deployment URL (or link to local `index.html`).
-4. During your presentation, clicking this link will open the live dashboard.
+### 1. Running the Frontend Dashboard
+Simply open [`frontend/index.html`](frontend/index.html) in any modern web browser or run:
+```powershell
+.\deployment\start_server.bat
+```
+Visit `http://localhost:8080` in your browser.
+
+### 2. Running the Python Backend (Optional)
+```bash
+cd backend
+pip install -r requirements.txt
+python server.py
+```
+API Documentation will be live at `http://localhost:8000/docs`.
+
+### 3. Real-Time GitHub Auto-Sync
+Whenever you make changes, launch:
+```powershell
+.\deployment\start_auto_sync.bat
+```
+All file changes will be pushed directly to GitHub automatically in real time!
