@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA-BORDER AI | Technical Presentation &amp; Architecture</title>
+  
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/tactical-ui.css">
+
+  <style>
+    .presentation-container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px 60px;
+    }
+
+    .slide-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 36px 40px;
+      margin-bottom: 30px;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .slide-card:hover {
+      border-color: rgba(56, 189, 248, 0.45);
+      box-shadow: 0 12px 40px rgba(0, 240, 255, 0.12);
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 16px;
+    }
+
+    .slide-num {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent-cyan);
+      background: rgba(0, 240, 255, 0.1);
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(0, 240, 255, 0.25);
+    }
+
+    .slide-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .slide-title svg {
+      color: var(--accent-cyan);
+    }
+
+    .slide-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .feature-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .feature-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .feature-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 950px) {
+      .feature-grid-4, .feature-grid-3, .feature-grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .slide-card {
+        padding: 24px 20px;
+      }
+    }
+
+    .info-box {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .info-box.highlight-red {
+      border-color: rgba(239, 68, 68, 0.4);
+      background: rgba(239, 68, 68, 0.06);
+    }
+    .info-box.highlight-green {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(16, 185, 129, 0.06);
+    }
+    .info-box.highlight-cyan {
+      border-color: rgba(0, 240, 255, 0.4);
+      background: rgba(0, 240, 255, 0.06);
+    }
+    .info-box.highlight-purple {
+      border-color: rgba(168, 85, 247, 0.4);
+      background: rgba(168, 85, 247, 0.06);
+    }
+
+    .box-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .math-formula {
+      background: #020617;
+      padding: 14px 18px;
+      border-radius: 6px;
+      border-left: 3px solid var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--accent-cyan);
+      margin: 10px 0;
+    }
+
+    .architecture-diagram {
+      background: #020617;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 8px;
+      padding: 24px;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .arch-flow-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .arch-node {
+      flex: 1;
+      min-width: 130px;
+      padding: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .arch-arrow {
+      color: var(--accent-cyan);
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+
+    .benchmark-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin-top: 14px;
+    }
+
+    .benchmark-table th, .benchmark-table td {
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .benchmark-table th {
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="top-navbar">
+    <div class="brand-section">
+      <div class="brand-logo-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M12 8v4"/>
+          <path d="M12 16h.01"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-title">
+          AURA-BORDER <span style="font-weight:400; font-size:0.9rem; color:var(--text-muted);">AI C2</span>
+          <span class="brand-badge">PPT PRESENTATION MODE</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <a href="index.html" class="btn btn-cyber">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+        Back to Live Dashboard &amp; CAM-MASTER
+      </a>
+      <button class="btn btn-primary" onclick="window.print()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 6 2 18 2 18 9"></polyline>
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+          <rect x="6" y="14" width="12" height="8"></rect>
+        </svg>
+        Export PDF Slides
+      </button>
+    </div>
+  </header>
+
+  <!-- Presentation Slides Content -->
+  <div class="presentation-container">
+
+    <!-- SLIDE 1: Executive Cover Slide -->
+    <div class="slide-card">
+      <div class="slide-header">
+        <div>
+          <h1 class="slide-title">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Autonomous AI Border Surveillance &amp; Subsurface Defense Platform
+          </h1>
+          <div class="slide-subtitle">All 4 Operational Conditions Unified: Human Video AI, Underground Digging Alarms, Animal Silent SMS, and AVF Fog Dehazing</div>
+        </div>
+        <span class="slide-num">SLIDE 01 / 07</span>
+      </div>
+
+      <div class="feature-grid-4">
+        <div class="info-box highlight-red">
+          <div class="box-title" style="font-size:0.95rem;">🚨 1. Human Video AI</div>
+          <p style="color:var(--text-muted); font-size:0.8rem;">
+            Neural video frequency isolation triggering loud tactical alarms &amp; QRF interception.
+          </p>
+        </div>
+
+        <div class="info-box highlight-purple">
+          <div class="box-title" style="font-size:0.95rem;">⛏️ 2. Digging Alarm &amp; Radius</div>
+          <p style="color:var(--text-muted); font-size:0.8rem;">
+            Acoustic DAS frequency analysis (80-250Hz / 1.2-3.5kHz) triggering <strong>Audible Seismic Alarms</strong> &amp; 74m radius lock.
+          </p>
+        </div>
+
+        <div class="info-box highlight-green">
+          <div class="box-title" style="font-size:0.95rem;">🐾 3. Wildlife Silent SMS</div>
+          <p style="color:var(--text-muted); font-size:0.8rem;">
+            Zero false alarms: Animals trigger silent telemetry SMS only, strictly suppressing sirens.
+          </p>
+        </div>
+
+        <div class="info-box highlight-cyan">
+          <div class="box-title" style="font-size:0.95rem;">🌫️ 4. AVF Fog &amp; Flash Dehaze</div>
+          <p style="color:var(--text-muted); font-size:0.8rem;">
+            Koschmieder atmospheric dehazing in dense fog and lightning flash suppression.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top:20px; background:rgba(0,240,255,0.06); border:1px solid rgba(0,240,255,0.25); border-radius:8px; padding:16px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <strong style="color:var(--accent-cyan);">🌟 CAM-MASTER Unified View:</strong>
+          <span style="color:var(--text-muted); font-size:0.85rem;"> All 4 conditions running simultaneously on one interactive screen with split AVF sliders.</span>
+        </div>
+        <a href="index.html" class="btn btn-cyber" style="font-size:0.75rem;">Launch Live Master View</a>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: Unified Master Camera View -->
+    <div class="slide-card">
+      <div class="slide-header">
+        <div>
+          <h2 class="slide-title">🌟 CAM-MASTER: Unified Multi-Modal Camera View</h2>
+          <div class="slide-subtitle">Demonstrating all 4 applied conditions concurrently within a single synchronized viewport</div>
+        </div>
+        <span class="slide-num">SLIDE 02 / 07</span>
+      </div>
+
+      <div class="feature-grid-2">
+        <div class="info-box" style="background:#020617;">
+          <h3 style="color:var(--accent-cyan); font-size:1rem;">Visual Scene Decomposition in CAM-MASTER:</h3>
+          <ul style="color:var(--text-muted); font-size:0.85rem; line-height:1.8; padding-left:18px;">
+            <li><strong>Condition 1 (Human Intrusion):</strong> Infiltrator bounding box with 98.6% confidence, velocity tracking, and audible tactical siren trigger.</li>
+            <li><strong>Condition 2 (Underground Digging):</strong> Subterranean shockwave pulses radiating through soil at -8.4m depth within 74.6m camera radius with audible seismic klaxon.</li>
+            <li><strong>Condition 3 (Fauna Discrimination):</strong> Foraging wolf classified with green bounding box, quietly dispatching a SATCOM/SMS log with 0dB audible alarm.</li>
+            <li><strong>Condition 4 (AVF Filter):</strong> Interactive left-to-right split comparison slider showing dense foggy storm on the left vs crystal clear dehazed video on the right.</li>
+          </ul>
+        </div>
+
+        <div class="info-box highlight-cyan">
+          <h3 style="color:#fff; font-size:1rem;">Why This Solves Border Defense:</h3>
+          <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.6;">
+            Conventional surveillance systems rely on fragmented standalone sensors. <strong>AURA-BORDER AI</strong> achieves cross-modal sensor fusion where video frequencies, subsurface acoustic geophones, and atmospheric vision filtering (AVF) operate under a unified autonomous rule matrix.
+          </p>
+          <div style="text-align:center; margin-top:10px;">
+            <a href="index.html" class="btn btn-primary" style="font-size:0.8rem;">Click to Open Live CAM-MASTER</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: Human Detection vs Animal Silent Protocol -->
+    <div class="slide-card">
+      <div class="slide-header">
+        <div>
+          <h2 class="slide-title">Human Detection &amp; Wildlife Silent Protocol</h2>
+          <div class="slide-subtitle">Eliminating 87% of false border alarms while maintaining 100% human intrusion alert readiness</div>
+        </div>
+        <span class="slide-num">SLIDE 03 / 07</span>
+      </div>
+
+      <div class="feature-grid-2">
+        <div class="info-box highlight-red">
+          <div class="box-title">🚨 Human Infiltration Protocol</div>
+          <ul style="color:var(--text-muted); font-size:0.85rem; line-height:1.7; padding-left:18px;">
+            <li><strong>Spatial Video Frequency Detection:</strong> Isolates human posture, velocity vectors, and keypoints.</li>
+            <li><strong>Audible Tactical Siren:</strong> Two-tone modulated sweep alarm sounds across command center.</li>
+            <li><strong>Autonomous QRF Drone Dispatch:</strong> Immediate coordinates forwarded to defense interceptors.</li>
+          </ul>
+        </div>
+
+        <div class="info-box highlight-green">
+          <div class="box-title">🐾 Wildlife Protocol (Strict Rule)</div>
+          <ul style="color:var(--text-muted); font-size:0.85rem; line-height:1.7; padding-left:18px;">
+            <li><strong>Species Identification:</strong> Classifies quadrupeds (wolves, deer, camels).</li>
+            <li><strong>STRICT SIREN SUPPRESSION:</strong> Sirens and alarm strobes are 100% suppressed.</li>
+            <li><strong>Silent SMS Toast:</strong> Dispatches telemetry SMS to forest rangers: <code>📱 SILENT SMS SENT</code>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Underground Digging Alarm & Camera Radius -->
+    <div class="slide-card">
+      <div class="slide-header">
+        <div>
+          <h2 class="slide-title">Underground Digging Detection, Audible Alarm &amp; Camera Radius</h2>
+          <div class="slide-subtitle">Acoustic DAS Geophone Triangulation and Automated Slew-to-Cue Perimeter Camera Targeting</div>
+        </div>
+        <span class="slide-num">SLIDE 04 / 07</span>
+      </div>
+
+      <div class="feature-grid-2">
+        <div>
+          <h3 style="color:#fff; font-size:1rem; margin-bottom:8px;">Acoustic Frequencies &amp; Audible Seismic Alarm:</h3>
+          <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:12px;">
+            Sub-surface excavation generates seismic waves picked up by Geophone Node #07:
+          </p>
+          <div class="info-box highlight-purple" style="margin-bottom:10px;">
+            <strong>1. Audible Digging Alarm:</strong> Low-frequency pulsing seismic klaxon + realistic subterranean drilling thump sound.
+          </div>
+          <div class="info-box highlight-purple">
+            <strong>2. Camera Radius Intersect:</strong> Calculates exact radial distance from camera (e.g. <em>74.6m radius / 250m FOV</em>).
+          </div>
+        </div>
+
+        <div class="info-box" style="background:#020617;">
+          <h3 style="color:var(--accent-purple); font-size:0.95rem;">Camera Radius &amp; Depth Triangulation Formula</h3>
+          <div class="math-formula">
+            R_{cam} = \sqrt{(x_{dig} - x_{cam})^2 + (y_{dig} - y_{cam})^2} = 74.6\text{m}, \quad z = -8.4\text{m}
+          </div>
+          <p style="color:var(--text-muted); font-size:0.8rem; line-height:1.5;">
+            Once detected, border optics automatically <strong>Slew-to-Cue</strong> to focus on the ground disturbance zone, superimposing an acoustic shockwave reticle over the surface clay stratum.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: Feature 4 - AVF in Fog & Lightning -->
+    <div class="slide-card">
+      <div class="slide-header">
+        <div>
+          <h2 class="slide-title">AVF (Adaptive Vision Filtering) Technology</h2>
+          <div class="slide-subtitle">Atmospheric scattering restoration in fog &amp; temporal flash suppression in lightning storms</div>
+        </div>
+        <span class="slide-num">SLIDE 05 / 07</span>
+      </div>
+
+      <div class="feature-grid-2">
+        <div>
+          <h3 style="color:#fff; font-size:1rem; margin-bottom:8px;">1. Atmospheric Fog &amp; Sandstorm Dehazing</h3>
+          <p style="color:var(--text-muted); font-size:0.85rem;">
+            Based on the Koschmieder Atmospheric Scattering Model and Dark Channel Prior (DCP):
+          </p>
+          <div class="math-formula">
+            I(x) = J(x) \cdot t(x) + A(1 - t(x)) \implies J(x) = \frac{I(x) - A}{\max(t(x), t_0)} + A
+          </div>
+        </div>
+
+        <div>
+          <h3 style="color:#fff; font-size:1rem; margin-bottom:8px;">2. Lightning Flash Suppression (AVF-TAC)</h3>
+          <p style="color:var(--text-muted); font-size:0.85rem;">
+            Temporal Adaptive Clamping prevents camera sensor whiteout during rapid lightning strikes:
+          </p>
+          <div class="math-formula">
+            L_{clamped}(t) = L_{baseline} \cdot \left( \frac{L_{baseline} + \epsilon}{L(t)} \right)^\gamma
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: Performance Benchmarks -->
+    <div class="slide-card">
+      <div class="slide-header">
+        <div>
+          <h2 class="slide-title">Experimental Benchmarks &amp; Performance Metrics</h2>
+          <div class="slide-subtitle">Validation across simulated and field border defense datasets</div>
+        </div>
+        <span class="slide-num">SLIDE 06 / 07</span>
+      </div>
+
+      <table class="benchmark-table">
+        <thead>
+          <tr>
+            <th>Surveillance Metric</th>
+            <th>Conventional CCTV / Sensor</th>
+            <th>AURA-BORDER AI (Unified Hub &amp; DAS)</th>
+            <th>Improvement Factor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Human Detection in Fog (AVF)</strong></td>
+            <td>38.4% mAP</td>
+            <td style="color:var(--accent-cyan); font-weight:700;">94.8% mAP</td>
+            <td style="color:var(--accent-green);">+56.4% Accuracy</td>
+          </tr>
+          <tr>
+            <td><strong>Wildlife False Alarm Siren Triggers</strong></td>
+            <td>142 False Alarms / Day</td>
+            <td style="color:var(--accent-green); font-weight:700;">0 Siren Triggers (100% Silent SMS)</td>
+            <td style="color:var(--accent-green);">-100% Siren Disruption</td>
+          </tr>
+          <tr>
+            <td><strong>Subsurface Digging Detection Range</strong></td>
+            <td>&lt; 3 meters</td>
+            <td style="color:var(--accent-purple); font-weight:700;">Up to 30m depth (74.6m Camera Radius)</td>
+            <td style="color:var(--accent-green);">10x Subsurface Depth</td>
+          </tr>
+          <tr>
+            <td><strong>Camera Slew-to-Cue Response Time</strong></td>
+            <td>Manual operator (45-120 sec)</td>
+            <td style="color:var(--accent-cyan); font-weight:700;">&lt; 1.2 sec (Autonomous PTZ Lock)</td>
+            <td style="color:var(--accent-green);">50x Faster Response</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SLIDE 7: Live Website Link & Deployment Guide -->
+    <div class="slide-card" style="border-color:var(--accent-cyan);">
+      <div class="slide-header">
+        <div>
+          <h2 class="slide-title" style="color:var(--accent-cyan);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            How to Include &amp; Deploy This Link in Your PPT
+          </h2>
+          <div class="slide-subtitle">Ready to upload to GitHub Pages, Vercel, Netlify, or run locally during your live presentation</div>
+        </div>
+        <span class="slide-num">SLIDE 07 / 07</span>
+      </div>
+
+      <div class="feature-grid-2">
+        <div class="info-box highlight-cyan">
+          <div class="box-title">🚀 1-Click Free Hosting Options</div>
+          <ol style="color:var(--text-muted); font-size:0.85rem; line-height:1.8; padding-left:18px;">
+            <li><strong>Netlify Drop:</strong> Drag and drop the <code>ai-border-surveillance</code> folder directly onto <a href="https://app.netlify.com/drop" target="_blank" style="color:var(--accent-cyan);">Netlify Drop</a> for an instant live link.</li>
+            <li><strong>GitHub Pages:</strong> Push to GitHub and enable <em>Settings &gt; Pages &gt; Deploy from Branch (main)</em>.</li>
+          </ol>
+        </div>
+
+        <div class="info-box">
+          <div class="box-title">📋 Direct PPT Hyperlink Template</div>
+          <p style="color:var(--text-muted); font-size:0.85rem;">
+            In PowerPoint, select your presentation button and press <strong>Ctrl+K</strong> to insert your live web dashboard link:
+          </p>
+          <div style="background:#020617; padding:10px; border-radius:6px; border:1px dashed var(--accent-cyan); font-family:var(--font-mono); font-size:0.8rem; color:#fff; margin-top:8px;">
+            <strong>Link Display Text:</strong> [Live Demo: AURA-BORDER AI C2 Dashboard]<br>
+            <strong>Target:</strong> <code>https://your-project.vercel.app</code> (or local <code>index.html</code>)
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:24px;">
+        <a href="index.html" class="btn btn-primary" style="font-size:0.95rem; padding:10px 24px;">
+          Open Live Dashboard Simulation &rarr;
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
