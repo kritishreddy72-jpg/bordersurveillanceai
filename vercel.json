@@ -5,19 +5,23 @@
   "routes": [
     {
       "src": "^/css/(.*)",
-      "dest": "/css/$1"
+      "dest": "/frontend/css/$1"
     },
     {
       "src": "^/js/(.*)",
-      "dest": "/js/$1"
+      "dest": "/frontend/js/$1"
+    },
+    {
+      "src": "^/frontend/(.*)",
+      "dest": "/frontend/$1"
     },
     {
       "src": "^/presentation",
-      "dest": "/presentation.html"
+      "dest": "/frontend/presentation.html"
     },
     {
       "src": "^/(.*)",
-      "dest": "/index.html"
+      "dest": "/frontend/index.html"
     }
   ]
 }
