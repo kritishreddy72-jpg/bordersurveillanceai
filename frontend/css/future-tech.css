@@ -1,0 +1,260 @@
+/* ==========================================================================
+   AURA-BORDER AI 2.0 - Next-Gen Defense Future Improvisations Stylesheet
+   Holographic Defense C2, 3D Canvas Viewports, RF Spectrum, and Leaflet Map
+   ========================================================================== */
+
+:root {
+  --bg-future-dark: #030712;
+  --bg-future-card: rgba(15, 23, 42, 0.88);
+  --border-future: rgba(56, 189, 248, 0.25);
+  --accent-cyan: #00f0ff;
+  --accent-purple: #a855f7;
+  --accent-pink: #ec4899;
+  --accent-amber: #f59e0b;
+  --accent-green: #10b981;
+  --accent-red: #ef4444;
+  --accent-blue: #3b82f6;
+  --font-future-mono: 'JetBrains Mono', monospace;
+  --font-future-sans: 'Inter', sans-serif;
+}
+
+body.future-tech-body {
+  background-color: var(--bg-future-dark);
+  background-image: 
+    radial-gradient(circle at 10% 10%, rgba(0, 240, 255, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(168, 85, 247, 0.04) 0%, transparent 40%),
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+  color: #f1f5f9;
+  font-family: var(--font-future-sans);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.future-container {
+  max-width: 1560px;
+  margin: 0 auto;
+  padding: 20px 24px 60px;
+}
+
+/* Future Tech Navigation Header */
+.future-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  background: rgba(3, 7, 18, 0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+.future-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.future-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.future-badge {
+  font-family: var(--font-future-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #0284c7, #9333ea);
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Category Grid Layout */
+.future-modules-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 24px;
+}
+
+@media (max-width: 1100px) {
+  .future-modules-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.future-card {
+  background: var(--bg-future-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-future);
+  border-radius: 10px;
+  padding: 20px 22px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.future-card:hover {
+  border-color: rgba(0, 240, 255, 0.5);
+  box-shadow: 0 10px 40px rgba(0, 240, 255, 0.12);
+}
+
+.future-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 12px;
+}
+
+.future-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.future-card-title svg {
+  color: var(--accent-cyan);
+}
+
+.future-card-num {
+  font-family: var(--font-future-mono);
+  font-size: 0.72rem;
+  color: var(--accent-cyan);
+  background: rgba(0, 240, 255, 0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 240, 255, 0.25);
+}
+
+.future-desc {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+/* Interactive Viewports inside Future Cards */
+.future-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  background: #020617;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.future-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Map Viewport */
+#leafletBorderMap {
+  width: 100%;
+  height: 260px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  z-index: 10;
+}
+
+/* Control Buttons & Tabs */
+.future-btn-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.future-btn {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: #e2e8f0;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-family: var(--font-future-mono);
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.future-btn:hover, .future-btn.active {
+  background: rgba(0, 240, 255, 0.18);
+  border-color: var(--accent-cyan);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+}
+
+.future-telemetry-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  font-family: var(--font-future-mono);
+  font-size: 0.72rem;
+  background: rgba(2, 6, 23, 0.7);
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.telemetry-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.telemetry-label {
+  color: #64748b;
+  font-size: 0.65rem;
+}
+
+.telemetry-value {
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.telemetry-value.cyan { color: var(--accent-cyan); }
+.telemetry-value.green { color: var(--accent-green); }
+.telemetry-value.purple { color: var(--accent-purple); }
+.telemetry-value.red { color: var(--accent-red); }
+.telemetry-value.amber { color: var(--accent-amber); }
+
+/* Live Telegram Dispatch Notification Toast */
+.telegram-toast {
+  display: none;
+  background: linear-gradient(135deg, #0088cc, #005580);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-family: var(--font-future-mono);
+  font-size: 0.78rem;
+  box-shadow: 0 8px 24px rgba(0, 136, 204, 0.4);
+  animation: slideToast 0.4s ease forwards;
+}
+
+@keyframes slideToast {
+  0% { transform: translateY(-10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
