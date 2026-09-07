@@ -12,6 +12,10 @@
       "dest": "/frontend/js/$1"
     },
     {
+      "src": "^/login",
+      "dest": "/frontend/login.html"
+    },
+    {
       "src": "^/future-tech",
       "dest": "/frontend/future-tech.html"
     },
