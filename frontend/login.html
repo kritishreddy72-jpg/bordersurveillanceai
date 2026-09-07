@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA-BORDER AI | Tactical Defense Authentication Gateway</title>
+  
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/tactical-ui.css">
+  
+  <style>
+    body.login-body {
+      background: #020617;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Ambient Cyber Background Grid */
+    .cyber-bg-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Holographic Auth Card */
+    .login-card {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 460px;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      border-radius: 12px;
+      padding: 32px 36px;
+      box-shadow: 0 0 50px rgba(0, 240, 255, 0.15), 0 20px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 18px;
+    }
+
+    .login-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      border-radius: 50%;
+      color: var(--accent-cyan);
+      margin-bottom: 12px;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+    }
+
+    .login-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 1px;
+      margin: 0;
+    }
+
+    .login-subtitle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent-cyan);
+      margin-top: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Form Fields */
+    .form-group {
+      margin-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      letter-spacing: 0.5px;
+    }
+
+    .form-input, .form-select {
+      background: rgba(2, 6, 23, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 6px;
+      padding: 10px 14px;
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 14px rgba(0, 240, 255, 0.3);
+    }
+
+    /* Submit Button */
+    .btn-login {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #0284c7, #9333ea);
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(2, 132, 199, 0.4);
+      transition: all 0.25s ease;
+      margin-top: 10px;
+    }
+
+    .btn-login:hover {
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.6);
+      transform: translateY(-1px);
+    }
+
+    /* Quick Demo Login Credentials */
+    .demo-creds-box {
+      margin-top: 22px;
+      background: rgba(2, 6, 23, 0.6);
+      border: 1px dashed rgba(56, 189, 248, 0.3);
+      border-radius: 6px;
+      padding: 12px;
+    }
+
+    .demo-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent-cyan);
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .demo-btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .demo-btn {
+      flex: 1;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      padding: 6px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .demo-btn:hover {
+      background: rgba(0, 240, 255, 0.15);
+      border-color: var(--accent-cyan);
+      color: #fff;
+    }
+
+    /* Alert Banner */
+    .auth-alert {
+      display: none;
+      padding: 10px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .auth-alert.error {
+      display: block;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid var(--accent-red);
+      color: #fca5a5;
+    }
+    .auth-alert.success {
+      display: block;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--accent-green);
+      color: #6ee7b7;
+    }
+  </style>
+</head>
+<body class="login-body">
+
+  <canvas id="cyberCanvas" class="cyber-bg-canvas"></canvas>
+
+  <div class="login-card">
+    <div class="login-header">
+      <div class="login-logo">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <h1 class="login-title">AURA-BORDER <span style="color:var(--accent-cyan);">AI</span></h1>
+      <div class="login-subtitle">DEFENSE C2 AUTHENTICATION GATEWAY</div>
+    </div>
+
+    <div id="authAlert" class="auth-alert"></div>
+
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label class="form-label">OPERATOR CALL-SIGN / SERVICE ID</label>
+        <input type="text" id="username" class="form-input" placeholder="e.g. COMMANDER_ALPHA" required value="CDR_RITISH">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">CLEARANCE KEY / ACCESS CODE</label>
+        <input type="password" id="password" class="form-input" placeholder="••••••••••••" required value="AURA-DEFENSE-2026">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">SECURITY CLEARANCE LEVEL</label>
+        <select id="clearanceLevel" class="form-select">
+          <option value="Level 5: Joint Tactical Commander">Level 5: Joint Tactical Commander (Full Access)</option>
+          <option value="Level 4: Sector Sensor Operator">Level 4: Sector Sensor Operator</option>
+          <option value="Level 3: Forest Ranger Liason">Level 3: Forest Ranger Liason (Fauna Only)</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn-login" id="submitBtn">
+        🔐 AUTHENTICATE &amp; ENTER C2
+      </button>
+    </form>
+
+    <!-- 1-Click Quick Demo Login -->
+    <div class="demo-creds-box">
+      <div class="demo-title">
+        <span>⚡ 1-CLICK DEMO CREDENTIALS</span>
+        <span style="color:#64748b;">AUTOPRECISION</span>
+      </div>
+      <div class="demo-btn-group">
+        <button type="button" class="demo-btn" onclick="fillCreds('CDR_RITISH', 'AURA-DEFENSE-2026', 'Level 5: Joint Tactical Commander')">
+          👑 Commander (L5)
+        </button>
+        <button type="button" class="demo-btn" onclick="fillCreds('OPERATOR_BRAVO', 'DEFENSE-SEC-88', 'Level 4: Sector Sensor Operator')">
+          🛡️ Operator (L4)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Animated Ambient Background Particles
+    const canvas = document.getElementById('cyberCanvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const particles = Array.from({ length: 45 }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.6,
+      vy: (Math.random() - 0.5) * 0.6,
+      radius: Math.random() * 2 + 1
+    }));
+
+    function animateBg() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = 'rgba(0, 240, 255, 0.3)';
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.05)';
+
+      particles.forEach((p, i) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+      });
+      requestAnimationFrame(animateBg);
+    }
+    animateBg();
+
+    function fillCreds(user, pass, level) {
+      document.getElementById('username').value = user;
+      document.getElementById('password').value = pass;
+      document.getElementById('clearanceLevel').value = level;
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const user = document.getElementById('username').value.trim();
+      const pass = document.getElementById('password').value.trim();
+      const level = document.getElementById('clearanceLevel').value;
+      const alertBox = document.getElementById('authAlert');
+      const submitBtn = document.getElementById('submitBtn');
+
+      if (!user || !pass) {
+        alertBox.className = 'auth-alert error';
+        alertBox.textContent = '❌ Please enter valid call-sign and access code.';
+        return;
+      }
+
+      submitBtn.innerHTML = '⏳ VERIFYING BIOMETRICS & CLEARANCE...';
+      submitBtn.disabled = true;
+
+      setTimeout(() => {
+        // Save auth session
+        const session = {
+          user: user,
+          level: level,
+          loginTime: new Date().toISOString(),
+          token: 'AUTH_TOKEN_' + Math.random().toString(36).substr(2, 9).toUpperCase()
+        };
+        localStorage.setItem('aura_defense_session', JSON.stringify(session));
+
+        alertBox.className = 'auth-alert success';
+        alertBox.textContent = `✅ CLEARANCE GRANTED: ${user} (${level})`;
+
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 800);
+      }, 700);
+    }
+  </script>
+</body>
+</html>
