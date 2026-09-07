@@ -375,17 +375,25 @@ class MultiCameraManager {
     this.activeFocusCamera = camKey;
     const gridContainer = document.getElementById('cameraGridContainer');
     const masterContainer = document.getElementById('masterCameraContainer');
+    const overviewContainer = document.getElementById('overviewHubContainer');
     if (!gridContainer || !masterContainer) return;
 
-    if (camKey === 'cam_master') {
+    if (camKey === 'overview') {
+      if (overviewContainer) overviewContainer.style.display = 'flex';
+      masterContainer.style.display = 'none';
+      gridContainer.style.display = 'none';
+    } else if (camKey === 'cam_master') {
+      if (overviewContainer) overviewContainer.style.display = 'none';
       masterContainer.style.display = 'block';
       gridContainer.style.display = 'none';
     } else if (camKey === 'all') {
+      if (overviewContainer) overviewContainer.style.display = 'none';
       masterContainer.style.display = 'none';
       gridContainer.style.display = 'grid';
       gridContainer.className = 'camera-grid-quad';
       document.querySelectorAll('.camera-card').forEach(card => card.style.display = 'flex');
     } else {
+      if (overviewContainer) overviewContainer.style.display = 'none';
       masterContainer.style.display = 'none';
       gridContainer.style.display = 'flex';
       gridContainer.className = 'camera-grid-single';
