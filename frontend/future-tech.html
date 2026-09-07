@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AURA-BORDER 2.0 | Next-Gen Defense Future Improvisations &amp; Research Lab</title>
+  <title>AURA-BORDER 2.0 | Next-Gen Defense Future Improvisations &amp; Multi-API Lab</title>
   
   <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,15 +30,15 @@
       </svg>
       <div>
         <div class="future-title">
-          AURA-BORDER <span style="color:var(--accent-cyan);">2.0 LAB</span>
-          <span class="future-badge">FUTURE IMPROVISATIONS</span>
+          AURA-BORDER <span style="color:var(--accent-cyan);">2.0 MULTI-API LAB</span>
+          <span class="future-badge">ALL APIS &amp; SENSORS ACTIVE</span>
         </div>
       </div>
     </div>
 
-    <div style="display:flex; gap:12px; align-items:center;">
+    <div class="nav-actions" style="display:flex; gap:10px; align-items:center;">
       <a href="index.html" class="future-btn" style="border-color:rgba(0,240,255,0.5);">
-        &larr; Return to Primary C2 Dashboard
+        &larr; Primary C2 Dashboard
       </a>
       <button class="future-btn active" onclick="window.print()">
         📑 Export Forensic Defense PDF
@@ -54,27 +54,27 @@
     <!-- Top Summary Banner -->
     <div style="background:rgba(15,23,42,0.9); border:1px solid rgba(0,240,255,0.3); border-radius:10px; padding:18px 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
       <div>
-        <h2 style="margin:0; font-size:1.3rem; color:#fff;">🔮 Autonomous Defense Architecture — Next-Gen Improvisations</h2>
+        <h2 style="margin:0; font-size:1.3rem; color:#fff;">🔮 All Real-World APIs, Satellite GIS &amp; AI Improvisations Connected</h2>
         <p style="margin:4px 0 0; font-size:0.85rem; color:#94a3b8;">
-          Live Real-World GIS Satellite Maps, Live Weather APIs, FLIR Thermal Heatmaps, Electronic Warfare RF SDR, and 3D Geophysics.
+          Live USGS Seismology, OpenSky ADS-B Airspace, Open-Meteo Weather, Gemini SITREPs, ONVIF PTZ Motors, FLIR Thermal, and MQTT IoT.
         </p>
       </div>
       <button class="future-btn" onclick="dispatchLiveTelegramAlert()" style="background:linear-gradient(135deg,#0088cc,#005580); color:#fff;">
-        📱 Test Live Phone / Telegram Dispatch
+        📱 Trigger Live Satcom Alert
       </button>
     </div>
 
-    <!-- 20 Future Improvisation Modules Grid -->
+    <!-- Multi-API Modules Grid -->
     <div class="future-modules-grid">
 
-      <!-- 1. Live Real-World Satellite GIS Map -->
+      <!-- 1. Live Real-World Satellite GIS Map (Leaflet.js & Esri) -->
       <div class="future-card">
         <div class="future-card-header">
           <div class="future-card-title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            1. Live Real-World Satellite GIS Map (Leaflet.js)
+            1. Live Real-World Satellite GIS Map (Leaflet / Esri)
           </div>
-          <span class="future-card-num">REAL-TIME GIS</span>
+          <span class="future-card-num">REAL-TIME GIS API</span>
         </div>
         <div class="future-desc">
           Interactive satellite imagery overlaying 4 border camera FOVs, geophone lines, and live moving intruder coordinates.
@@ -82,21 +82,21 @@
         <div id="leafletBorderMap"></div>
         <div class="future-telemetry-row">
           <div class="telemetry-item">
-            <span class="telemetry-label">SECTOR COORDINATES</span>
+            <span class="telemetry-label">BORDER SECTOR</span>
             <span class="telemetry-value cyan">32.7383°N, 74.8511°E</span>
           </div>
           <div class="telemetry-item">
-            <span class="telemetry-label">MAP ENGINE</span>
+            <span class="telemetry-label">GIS ENGINE</span>
             <span class="telemetry-value">Esri World Imagery</span>
           </div>
           <div class="telemetry-item">
-            <span class="telemetry-label">CAMERA FOV CONES</span>
-            <span class="telemetry-value green">4 ACTIVE (250m)</span>
+            <span class="telemetry-label">COVERAGE</span>
+            <span class="telemetry-value green">4 CONES (250m)</span>
           </div>
         </div>
       </div>
 
-      <!-- 2. Live Border Weather API & AVF Trigger -->
+      <!-- 2. Live Border Meteorological API (Open-Meteo) -->
       <div class="future-card">
         <div class="future-card-header">
           <div class="future-card-title">
@@ -106,15 +106,15 @@
           <span class="future-card-num">METEOROLOGY API</span>
         </div>
         <div class="future-desc">
-          Fetches live temperature, humidity, and optical visibility from real border coordinates to dynamically engage the AVF Dehaze Engine.
+          Pulls live atmospheric temperature, humidity, and visibility to dynamically control the AVF Koschmieder Dehazing Filter.
         </div>
-        <div class="future-telemetry-row" style="grid-template-columns:repeat(4, 1fr); padding:16px;">
+        <div class="future-telemetry-row" style="grid-template-columns:repeat(4, 1fr); padding:14px;">
           <div class="telemetry-item">
             <span class="telemetry-label">LIVE TEMPERATURE</span>
             <span class="telemetry-value cyan" id="liveTemp">Loading...</span>
           </div>
           <div class="telemetry-item">
-            <span class="telemetry-label">RELATIVE HUMIDITY</span>
+            <span class="telemetry-label">HUMIDITY</span>
             <span class="telemetry-value amber" id="liveHumidity">Loading...</span>
           </div>
           <div class="telemetry-item">
@@ -131,12 +131,117 @@
         </div>
       </div>
 
-      <!-- 3. FLIR Thermal & Night-Vision Suite + Weapon AI -->
+      <!-- 3. Live USGS Global Real-Time Seismology API -->
+      <div class="future-card">
+        <div class="future-card-header">
+          <div class="future-card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            3. Live USGS Real-Time Seismology API
+          </div>
+          <span class="future-card-num">USGS SEISMIC API</span>
+        </div>
+        <div class="future-desc">
+          Fetches real-time worldwide earthquake feeds to cancel out natural tectonic tremors from artificial tunnel digging vibrations.
+        </div>
+        <div class="future-telemetry-row">
+          <div class="telemetry-item">
+            <span class="telemetry-label">SEISMIC FEED (1 HOUR)</span>
+            <span class="telemetry-value purple" id="usgsEventCount">Fetching USGS Stream...</span>
+          </div>
+          <div class="telemetry-item" style="grid-column: span 2;">
+            <span class="telemetry-label">LATEST REGIONAL EVENT FILTER</span>
+            <span class="telemetry-value green" id="usgsLatestEvent">Analyzing Tectonic Baseline...</span>
+          </div>
+        </div>
+        <div style="background:rgba(168,85,247,0.06); padding:10px; border-radius:6px; font-family:var(--font-future-mono); font-size:0.72rem; border-left:3px solid var(--accent-purple);">
+          Tectonic Discrimination: Natural earthquakes (&lt;10 Hz low-freq rolling waves) are rejected; artificial boring (1.2 - 3.5 kHz) triggers digging klaxon.
+        </div>
+      </div>
+
+      <!-- 4. Google Gemini GenAI Tactical SITREP Briefing -->
+      <div class="future-card">
+        <div class="future-card-header">
+          <div class="future-card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            4. Google Gemini GenAI Tactical SITREP Briefing
+          </div>
+          <span class="future-card-num">GEMINI 2.0 AI</span>
+        </div>
+        <div class="future-desc">
+          Multimodal vision intelligence generating structured defense situation reports in real-time.
+        </div>
+        <div id="geminiSitrepText" style="background:#020617; border:1px solid rgba(0,240,255,0.3); border-radius:6px; padding:12px; font-family:var(--font-future-mono); font-size:0.75rem; color:#38bdf8; line-height:1.5; min-height:60px;">
+          [GEMINI 2.0 SITREP]: Visual confirmation of 1 adult Canis lupus (Wolf) navigating parallel to Sector Alpha perimeter fence. Biological thermal signature (38.2°C). Low threat index (0.04). System rule executed: SILENT RANGER SMS DISPATCHED. Acoustic siren suppressed.
+        </div>
+      </div>
+
+      <!-- 5. ONVIF IP Camera PTZ Motor Controller (Slew-to-Cue) -->
+      <div class="future-card">
+        <div class="future-card-header">
+          <div class="future-card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6z"/></svg>
+            5. ONVIF IP Camera PTZ Slew-to-Cue API
+          </div>
+          <span class="future-card-num">ONVIF MOTOR API</span>
+        </div>
+        <div class="future-desc">
+          Automated Pan-Tilt-Zoom motor commands slewing physical border cameras onto triangulated geophone coordinates.
+        </div>
+        <div class="future-btn-group">
+          <button class="future-btn" onclick="slewCameraPTZ(45, 12, 4)">🎯 Slew to Sector Alpha (Pan 45°)</button>
+          <button class="future-btn" onclick="slewCameraPTZ(128, -8, 8)">⛏️ Slew to Digging Zone (Pan 128°)</button>
+          <button class="future-btn" onclick="slewCameraPTZ(210, 5, 2)">🌊 Slew to River Basin (Pan 210°)</button>
+        </div>
+        <div id="onvifPTZStatus" style="font-family:var(--font-future-mono); font-size:0.72rem; color:#94a3b8; margin-top:4px;">
+          ONVIF Controller Standby: Ready to receive auto-slew triggers.
+        </div>
+      </div>
+
+      <!-- 6. Live MQTT / ESP32 Sensor Packet Streamer -->
+      <div class="future-card">
+        <div class="future-card-header">
+          <div class="future-card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+            6. MQTT / ESP32 Wireless Geophone Ingestion
+          </div>
+          <span class="future-card-num">MQTT PROTOCOL</span>
+        </div>
+        <div class="future-desc">
+          Live analog sensor telemetry streamed from 12 battery-powered solar ESP32 geophone microcontrollers.
+        </div>
+        <div id="mqttPacketStream" style="background:#020617; border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:8px 12px; font-family:var(--font-future-mono); font-size:0.7rem; color:#10b981; height:85px; overflow:hidden;">
+          <div>[MQTT ESP32_NODE_06] V_RMS: 0.0482 m/s² | Batt: 3.84V | RSSI: -64 dBm</div>
+          <div>[MQTT ESP32_NODE_07] V_RMS: 0.0512 m/s² | Batt: 3.88V | RSSI: -62 dBm</div>
+        </div>
+      </div>
+
+      <!-- 7. Real Telegram & Satcom Bot Dispatcher -->
+      <div class="future-card">
+        <div class="future-card-header">
+          <div class="future-card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            7. Real Telegram / SMS Webhook Dispatcher
+          </div>
+          <span class="future-card-num">TELEGRAM API</span>
+        </div>
+        <div class="future-desc">
+          Optionally enter your Telegram Bot Token &amp; Chat ID to receive actual live alert messages on your physical phone!
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <input type="text" id="telegramBotToken" class="form-input" placeholder="Bot Token (Optional)" style="font-size:0.75rem; padding:6px 10px;">
+          <input type="text" id="telegramChatId" class="form-input" placeholder="Chat ID (Optional)" style="font-size:0.75rem; padding:6px 10px;">
+        </div>
+        <button class="future-btn" onclick="dispatchLiveTelegramAlert()" style="background:linear-gradient(135deg,#0088cc,#005580); color:#fff; width:100%; justify-content:center;">
+          🚀 Dispatch Live Push to Telegram / SMS
+        </button>
+      </div>
+
+      <!-- 8. FLIR Thermal & Night-Vision Suite + Weapon AI -->
       <div class="future-card">
         <div class="future-card-header">
           <div class="future-card-title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"/><path d="M12 2v20"/></svg>
-            3. FLIR Thermal Heatmap &amp; Weapon Detection AI
+            8. FLIR Thermal Heatmap &amp; Weapon Detection AI
           </div>
           <span class="future-card-num">OPTICS &amp; WEAPONS</span>
         </div>
@@ -153,12 +258,12 @@
         </div>
       </div>
 
-      <!-- 4. Electronic Warfare RF Spectrum & SDR Sniffer -->
+      <!-- 9. Electronic Warfare RF Spectrum & SDR Sniffer -->
       <div class="future-card">
         <div class="future-card-header">
           <div class="future-card-title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 10v3"/><path d="M6 6v11"/><path d="M10 3v18"/><path d="M14 8v7"/><path d="M18 5v13"/><path d="M22 10v3"/></svg>
-            4. RF Spectrum &amp; Tactical SDR Sniffer
+            9. RF Spectrum &amp; Tactical SDR Sniffer
           </div>
           <span class="future-card-num">ELECTRONIC WARFARE</span>
         </div>
@@ -168,28 +273,14 @@
         <div class="future-canvas-wrapper" style="height:200px;">
           <canvas id="rfWaterfallCanvas" class="future-canvas"></canvas>
         </div>
-        <div class="future-telemetry-row">
-          <div class="telemetry-item">
-            <span class="telemetry-label">CH 1: 433.92 MHz</span>
-            <span class="telemetry-value red">BURST DETECTED (WALKIE)</span>
-          </div>
-          <div class="telemetry-item">
-            <span class="telemetry-label">CH 2: 2.412 GHz</span>
-            <span class="telemetry-value amber">UAV TELEMETRY LINK</span>
-          </div>
-          <div class="telemetry-item">
-            <span class="telemetry-label">SDR STATUS</span>
-            <span class="telemetry-value cyan">SWEEPING 50-6000MHz</span>
-          </div>
-        </div>
       </div>
 
-      <!-- 5. 77 GHz FMCW Micro-Doppler Radar -->
+      <!-- 10. 77 GHz FMCW Micro-Doppler Radar -->
       <div class="future-card">
         <div class="future-card-header">
           <div class="future-card-title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="6" x2="12" y2="12"/></svg>
-            5. 77 GHz FMCW Micro-Doppler Radar
+            10. 77 GHz FMCW Micro-Doppler Radar
           </div>
           <span class="future-card-num">RADAR SENSING</span>
         </div>
@@ -201,12 +292,12 @@
         </div>
       </div>
 
-      <!-- 6. Acoustic Beamforming 360° Polar Direction-of-Arrival -->
+      <!-- 11. Acoustic Beamforming 360° Polar Direction-of-Arrival -->
       <div class="future-card">
         <div class="future-card-header">
           <div class="future-card-title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
-            6. Acoustic Beamforming &amp; 360° Polar DOA
+            11. Acoustic Beamforming &amp; 360° Polar DOA
           </div>
           <span class="future-card-num">PHASED ARRAY AUDIO</span>
         </div>
@@ -218,12 +309,12 @@
         </div>
       </div>
 
-      <!-- 7. Subsurface Electrical Resistivity Tomography (ERT) -->
+      <!-- 12. Subsurface Electrical Resistivity Tomography (ERT) -->
       <div class="future-card">
         <div class="future-card-header">
           <div class="future-card-title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
-            7. Electrical Resistivity Tomography (ERT)
+            12. Electrical Resistivity Tomography (ERT)
           </div>
           <span class="future-card-num">SOIL GEOPHYSICS</span>
         </div>
@@ -235,12 +326,12 @@
         </div>
       </div>
 
-      <!-- 8. DAS Optical Fiber OTDR 10km Waterfall Plot -->
+      <!-- 13. DAS Optical Fiber OTDR 10km Waterfall Plot -->
       <div class="future-card">
         <div class="future-card-header">
           <div class="future-card-title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12"/></svg>
-            8. DAS Optical Fiber 10km OTDR Waterfall
+            13. DAS Optical Fiber 10km OTDR Waterfall
           </div>
           <span class="future-card-num">FIBER SENSING</span>
         </div>
@@ -252,12 +343,12 @@
         </div>
       </div>
 
-      <!-- 9. Kalman Filter AI Interception Trajectory -->
+      <!-- 14. Kalman Filter AI Interception Trajectory -->
       <div class="future-card">
         <div class="future-card-header">
           <div class="future-card-title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            9. Kalman Filter Escape Path Predictor
+            14. Kalman Filter Escape Path Predictor
           </div>
           <span class="future-card-num">TRAJECTORY AI</span>
         </div>
@@ -269,12 +360,12 @@
         </div>
       </div>
 
-      <!-- 10. 3D Subterranean Voxel Soil & Tunnel Viewer -->
+      <!-- 15. 3D Subterranean Voxel Soil & Tunnel Viewer -->
       <div class="future-card">
         <div class="future-card-header">
           <div class="future-card-title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-            10. 3D Subterranean Voxel Strata Viewer
+            15. 3D Subterranean Voxel Strata Viewer
           </div>
           <span class="future-card-num">3D GEOTECHNICAL</span>
         </div>
@@ -286,12 +377,12 @@
         </div>
       </div>
 
-      <!-- 11. Biometric Gait Cadence & Airspace Drone Radar -->
+      <!-- 16. Biometric Gait Cadence & Airspace Drone Radar -->
       <div class="future-card">
         <div class="future-card-header">
           <div class="future-card-title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M5.5 21v-7a6.5 6.5 0 0 1 13 0v7"/></svg>
-            11. Biometric Gait AI &amp; Airspace UAV Tracker
+            16. Biometric Gait AI &amp; Airspace UAV Tracker
           </div>
           <span class="future-card-num">BIOMETRICS &amp; AIRSPACE</span>
         </div>
@@ -301,37 +392,6 @@
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
           <canvas id="gaitCanvas" style="width:100%; height:200px; background:#020617; border-radius:6px;"></canvas>
           <canvas id="airspaceCanvas" style="width:100%; height:200px; background:#020617; border-radius:6px;"></canvas>
-        </div>
-      </div>
-
-      <!-- 12. Off-Grid Solar Power & Wildlife Migration Corridor -->
-      <div class="future-card">
-        <div class="future-card-header">
-          <div class="future-card-title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
-            12. Edge Power Management &amp; Wildlife Heatmap
-          </div>
-          <span class="future-card-num">GREEN DEFENSE</span>
-        </div>
-        <div class="future-desc">
-          Monitors off-grid solar array power draw while mapping multi-week wildlife migration density corridors.
-        </div>
-        <div class="future-telemetry-row">
-          <div class="telemetry-item">
-            <span class="telemetry-label">SOLAR ARRAY YIELD</span>
-            <span class="telemetry-value cyan" id="solarWattage">435 W</span>
-          </div>
-          <div class="telemetry-item">
-            <span class="telemetry-label">BATTERY STORAGE</span>
-            <span class="telemetry-value green" id="battReserve">94.8%</span>
-          </div>
-          <div class="telemetry-item">
-            <span class="telemetry-label">EDGE AI COMPUTE POWER</span>
-            <span class="telemetry-value amber" id="aiPowerDraw">18.4 W</span>
-          </div>
-        </div>
-        <div class="future-canvas-wrapper" style="height:180px;">
-          <canvas id="wildlifeCorridorCanvas" class="future-canvas"></canvas>
         </div>
       </div>
 
