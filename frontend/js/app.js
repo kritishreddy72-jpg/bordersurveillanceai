@@ -122,6 +122,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // E. Standby / Reset Scenarios
+  const btnResetScenarios = document.getElementById('btnResetScenarios');
+  if (btnResetScenarios) {
+    btnResetScenarios.addEventListener('click', () => {
+      multiCamManager.resetAllScenarios();
+      updateAVFTelemetry();
+      if (window.tacticalAudio) window.tacticalAudio.playClick();
+    });
+  }
+
   // 5. Audio Mute Toggle
   const muteBtn = document.getElementById('audioMuteBtn');
   if (muteBtn) {
