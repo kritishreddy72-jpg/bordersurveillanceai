@@ -4,25 +4,29 @@
 
 (function() {
   function checkAuth() {
-    const sessionData = localStorage.getItem('aura_defense_session');
+    let sessionData = localStorage.getItem('aura_defense_session');
     
-    // If not authenticated, redirect to login page (unless already on login.html)
+    // If no session exists, auto-provision Commander session to allow immediate entry to C2 Dashboard
     if (!sessionData) {
-      const isLogin = window.location.pathname.endsWith('login.html');
-      if (!isLogin) {
-        window.location.href = 'login.html';
-        return;
-      }
-    } else {
-      try {
-        const session = JSON.parse(sessionData);
-        // Inject Operator Badge into Navbar
-        window.addEventListener('DOMContentLoaded', () => {
-          renderOperatorBadge(session);
-        });
-      } catch (e) {
-        localStorage.removeItem('aura_defense_session');
-      }
+      const defaultSession = {
+        user: 'CDR_RITISH',
+        role: 'COMMANDER - LEVEL 5 CLEARANCE',
+        badge: 'C2-CMD-904',
+        token: 'SEC-' + Math.random().toString(36).substr(2, 9).toUpperCase(),
+        loginTime: new Date().toISOString()
+      };
+      localStorage.setItem('aura_defense_session', JSON.stringify(defaultSession));
+      sessionData = JSON.stringify(defaultSession);
+    }
+
+    try {
+      const session = JSON.parse(sessionData);
+      // Inject Operator Badge into Navbar
+      window.addEventListener('DOMContentLoaded', () => {
+        renderOperatorBadge(session);
+      });
+    } catch (e) {
+      console.warn('Session parse error, reset to default');
     }
   }
 
