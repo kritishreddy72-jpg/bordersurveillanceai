@@ -12,12 +12,16 @@
       "dest": "/frontend/js/$1"
     },
     {
-      "src": "^/frontend/(.*)",
-      "dest": "/frontend/$1"
+      "src": "^/future-tech",
+      "dest": "/frontend/future-tech.html"
     },
     {
       "src": "^/presentation",
       "dest": "/frontend/presentation.html"
+    },
+    {
+      "src": "^/frontend/(.*)",
+      "dest": "/frontend/$1"
     },
     {
       "src": "^/(.*)",
