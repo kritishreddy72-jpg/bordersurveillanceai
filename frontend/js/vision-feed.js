@@ -12,18 +12,18 @@ class MultiCameraManager {
     this.cameras = {
       'cam_master': {
         id: 'CAM-MASTER',
-        name: 'Sector Master — Unified Multi-Modal Border Hub (All Conditions)',
+        name: 'Unified Master Defense Sensor (All Conditions Concurrent)',
         canvasId: 'canvas_cam_master',
         ctx: null,
-        status: 'ALL 4 AI CONDITIONS ACTIVE',
-        statusClass: 'status-master',
-        weather: { type: 'fog', fogDensity: 0.85, lightningActive: true, isNight: false },
+        status: 'STANDBY PATROL - SECURE',
+        statusClass: 'status-ok',
+        weather: { type: 'clear', fogDensity: 0.05, lightningActive: false, isNight: false },
         viewMode: 'optical',
         targets: [],
         coverageRadius: '300m UNIFIED FOV',
         latLong: '32°44\'18"N 74°51\'04"E',
         terrainType: 'master',
-        isSlewedToTunnel: true,
+        isSlewedToTunnel: false,
         tunnelRadius: 74.6,
         tunnelDepth: 8.4
       },
@@ -32,7 +32,7 @@ class MultiCameraManager {
         name: 'Sector Alpha — North Ridge Outpost',
         canvasId: 'canvas_cam1',
         ctx: null,
-        status: 'MONITORING',
+        status: 'STANDBY PATROL - SECURE',
         statusClass: 'status-ok',
         weather: { type: 'clear', fogDensity: 0.0, lightningActive: false, isNight: false },
         viewMode: 'optical',
@@ -46,9 +46,9 @@ class MultiCameraManager {
         name: 'Sector Bravo — Canyon Ridge Pass',
         canvasId: 'canvas_cam2',
         ctx: null,
-        status: 'MONITORING',
+        status: 'STANDBY PATROL - SECURE',
         statusClass: 'status-ok',
-        weather: { type: 'clear', fogDensity: 0.1, lightningActive: false, isNight: false },
+        weather: { type: 'clear', fogDensity: 0.05, lightningActive: false, isNight: false },
         viewMode: 'optical',
         targets: [],
         coverageRadius: '220m FOV',
@@ -60,9 +60,9 @@ class MultiCameraManager {
         name: 'Sector Charlie — River Basin Crossing',
         canvasId: 'canvas_cam3',
         ctx: null,
-        status: 'AVF DEHAZING',
-        statusClass: 'status-avf',
-        weather: { type: 'fog', fogDensity: 0.82, lightningActive: false, isNight: false },
+        status: 'STANDBY PATROL - SECURE',
+        statusClass: 'status-ok',
+        weather: { type: 'clear', fogDensity: 0.05, lightningActive: false, isNight: false },
         viewMode: 'optical',
         targets: [],
         coverageRadius: '200m FOV',
@@ -74,7 +74,7 @@ class MultiCameraManager {
         name: 'Sector Delta — East Subsurface Perimeter',
         canvasId: 'canvas_cam4',
         ctx: null,
-        status: 'SEISMIC DAS ARMED',
+        status: 'SEISMIC DAS ARMED - SECURE',
         statusClass: 'status-ok',
         weather: { type: 'clear', fogDensity: 0.05, lightningActive: false, isNight: false },
         viewMode: 'optical',
@@ -82,7 +82,7 @@ class MultiCameraManager {
         coverageRadius: '250m FOV',
         latLong: '32°44\'18"N 74°51\'04"E',
         terrainType: 'desert',
-        isSlewedToTunnel: true,
+        isSlewedToTunnel: false,
         tunnelRadius: 74.6,
         tunnelDepth: 8.4
       }
@@ -95,7 +95,6 @@ class MultiCameraManager {
     this.groundDisturbancePulse = 0;
 
     this.initFog();
-    this.initAllCameraTargets();
   }
 
   init() {
@@ -249,6 +248,91 @@ class MultiCameraManager {
     this.setFocusCamera('cam_master');
     const masterCam = this.cameras['cam_master'];
 
+    // 1. Populate moving targets dynamically on CAM-MASTER
+    masterCam.targets = [
+      {
+        id: 'T-01',
+        type: 'human',
+        name: 'HUMAN INFILTRATOR',
+        x: 180,
+        y: 280,
+        width: 36,
+        height: 80,
+        speedX: 0.65,
+        confidence: 0.986,
+        threatLevel: 'CRITICAL (SIREN ARMED)',
+        thermalSignature: '37.4°C',
+        coords: '32°44\'18"N 74°51\'04"E'
+      },
+      {
+        id: 'W-01',
+        type: 'animal',
+        name: 'WILDLIFE: CANIS LUPUS (WOLF)',
+        x: 680,
+        y: 330,
+        width: 65,
+        height: 46,
+        speedX: -0.75,
+        confidence: 0.954,
+        threatLevel: 'ZERO (SILENT SMS LOGGED)',
+        thermalSignature: '38.8°C',
+        coords: '32°44\'20"N 74°51\'08"E'
+      }
+    ];
+    masterCam.isSlewedToTunnel = true;
+    masterCam.tunnelDepth = 8.4;
+    masterCam.tunnelRadius = 74.6;
+    masterCam.status = '🌟 ALL 4 CONDITIONS ACTIVE';
+
+    // Also populate individual cameras so Quad Grid reflects activity
+    this.cameras['cam1'].targets = [{
+      id: 'W-01',
+      type: 'animal',
+      name: 'WILDLIFE: CANIS LUPUS (WOLF)',
+      x: 280,
+      y: 195,
+      width: 50,
+      height: 35,
+      speedX: -0.65,
+      confidence: 0.952,
+      threatLevel: 'NONE (ANIMAL)',
+      thermalSignature: '38.8°C',
+      coords: '32°44\'12"N 74°50\'52"E'
+    }];
+    this.cameras['cam1'].status = '🐾 WILDLIFE (SILENT)';
+    this.updateCamCardBadge('cam1', '🐾 WILDLIFE (SILENT)', 'badge-animal');
+
+    this.cameras['cam2'].targets = [{
+      id: 'T-02',
+      type: 'human',
+      name: 'HUMAN INFILTRATOR',
+      x: 190,
+      y: 185,
+      width: 28,
+      height: 65,
+      speedX: 0.7,
+      confidence: 0.986,
+      threatLevel: 'CRITICAL',
+      thermalSignature: '37.4°C',
+      coords: '32°44\'15"N 74°50\'58"E'
+    }];
+    this.cameras['cam2'].status = '🚨 HUMAN INTRUDER';
+    this.updateCamCardBadge('cam2', '🚨 HUMAN INTRUDER', 'badge-human');
+
+    this.cameras['cam4'].isSlewedToTunnel = true;
+    this.cameras['cam4'].tunnelDepth = 8.4;
+    this.cameras['cam4'].tunnelRadius = 74.6;
+    this.cameras['cam4'].status = '⛏️ DIGGING DETECTED';
+    this.updateCamCardBadge('cam4', '⛏️ DIGGING [74.6m RADIUS]', 'badge-tunnel');
+
+    // Show Radar blips
+    const blipH = document.getElementById('radarBlipHuman');
+    const blipA = document.getElementById('radarBlipAnimal');
+    const blipT = document.getElementById('radarBlipTunnel');
+    if (blipH) blipH.style.display = 'block';
+    if (blipA) blipA.style.display = 'block';
+    if (blipT) blipT.style.display = 'block';
+
     // 1. Human Infiltration (triggers siren)
     if (window.alertSystem) {
       window.alertSystem.triggerHumanAlarm(masterCam.targets[0], 'CAM-MASTER', 'Unified Defense Hub', new Date().toLocaleTimeString());
@@ -289,6 +373,9 @@ class MultiCameraManager {
     cam.status = '🚨 HUMAN INTRUDER';
     this.updateCamCardBadge('cam2', '🚨 HUMAN INTRUDER', 'badge-human');
 
+    const blipH = document.getElementById('radarBlipHuman');
+    if (blipH) blipH.style.display = 'block';
+
     if (window.alertSystem) {
       window.alertSystem.handleTargetDetection(cam.targets[0], cam);
     }
@@ -313,6 +400,9 @@ class MultiCameraManager {
     cam.status = '🐾 WILDLIFE (SILENT)';
     this.updateCamCardBadge('cam1', '🐾 WILDLIFE (SILENT)', 'badge-animal');
 
+    const blipA = document.getElementById('radarBlipAnimal');
+    if (blipA) blipA.style.display = 'block';
+
     if (window.alertSystem) {
       window.alertSystem.handleTargetDetection(cam.targets[0], cam);
     }
@@ -326,6 +416,9 @@ class MultiCameraManager {
     cam.status = '⛏️ DIGGING DETECTED';
     this.updateCamCardBadge('cam4', `⛏️ DIGGING [${radius}m RADIUS]`, 'badge-tunnel');
 
+    const blipT = document.getElementById('radarBlipTunnel');
+    if (blipT) blipT.style.display = 'block';
+
     if (window.seismicEngine) {
       window.seismicEngine.triggerTunnelDigging('rotary_drill');
     }
@@ -334,11 +427,61 @@ class MultiCameraManager {
   stopDiggingOnCam4() {
     const cam = this.cameras['cam4'];
     cam.isSlewedToTunnel = false;
-    cam.status = 'SEISMIC DAS ARMED';
+    cam.status = 'SEISMIC DAS ARMED - SECURE';
     this.updateCamCardBadge('cam4', 'SEISMIC DAS ARMED', 'card-badge');
+
+    const blipT = document.getElementById('radarBlipTunnel');
+    if (blipT) blipT.style.display = 'none';
 
     if (window.seismicEngine) {
       window.seismicEngine.stopTunnelDigging();
+    }
+  }
+
+  /**
+   * ⏹️ Reset ALL scenarios to clean zero-movement patrol state
+   */
+  resetAllScenarios() {
+    // 1. Clear targets on all cameras
+    Object.keys(this.cameras).forEach(camKey => {
+      const cam = this.cameras[camKey];
+      cam.targets = [];
+      cam.isSlewedToTunnel = false;
+      cam.weather.fogDensity = 0.05;
+      cam.weather.lightningActive = false;
+      cam.weather.type = 'clear';
+      cam.status = 'STANDBY PATROL - SECURE';
+    });
+
+    this.cameras['cam4'].status = 'SEISMIC DAS ARMED - SECURE';
+    this.lightningFlashTimer = 0;
+
+    // 2. Reset Badges
+    this.updateCamCardBadge('cam_master', 'STANDBY PATROL - SECURE', 'badge-ok');
+    this.updateCamCardBadge('cam1', 'STANDBY PATROL', 'badge-ok');
+    this.updateCamCardBadge('cam2', 'STANDBY PATROL', 'badge-ok');
+    this.updateCamCardBadge('cam3', 'AVF DEHAZING', 'status-avf');
+    this.updateCamCardBadge('cam4', 'SEISMIC DAS ARMED', 'card-badge');
+
+    // 3. Hide radar blips
+    ['radarBlipHuman', 'radarBlipAnimal', 'radarBlipTunnel'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+
+    // 4. Silence Alarms & stop digging
+    if (window.alertSystem) {
+      window.alertSystem.silenceAlarm();
+    }
+    if (window.seismicEngine) {
+      window.seismicEngine.stopTunnelDigging();
+    }
+
+    // 5. Reset Digging button UI
+    const btnSimTunnel = document.getElementById('btnSimTunnel');
+    if (btnSimTunnel) {
+      btnSimTunnel.classList.remove('active');
+      btnSimTunnel.innerHTML = `<span>⛏️ 3. Digging Alarm &amp; Radius [CAM-04]</span>`;
     }
   }
 
@@ -500,34 +643,36 @@ class MultiCameraManager {
     ctx.fillStyle = 'rgba(0, 240, 255, 0.6)';
     ctx.fillRect(770, 140, 25, 12);
 
-    // 5. Condition 2: Underground Tunnel Digging Shockwaves & Reticle
-    const spotX = 440;
-    const spotY = 350;
-    const pulse = Math.sin(this.groundDisturbancePulse) * 8;
+    // 5. Condition 2: Underground Tunnel Digging Shockwaves & Reticle (Only when triggered)
+    if (cam.isSlewedToTunnel) {
+      const spotX = 440;
+      const spotY = 350;
+      const pulse = Math.sin(this.groundDisturbancePulse) * 8;
 
-    for (let r = 20; r <= 80; r += 20) {
-      ctx.strokeStyle = `rgba(168, 85, 247, ${0.8 - r / 120})`;
-      ctx.lineWidth = 2;
+      for (let r = 20; r <= 80; r += 20) {
+        ctx.strokeStyle = `rgba(168, 85, 247, ${0.8 - r / 120})`;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.ellipse(spotX, spotY, r + pulse, (r + pulse) * 0.45, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.fillStyle = 'rgba(168, 85, 247, 0.4)';
       ctx.beginPath();
-      ctx.ellipse(spotX, spotY, r + pulse, (r + pulse) * 0.45, 0, 0, Math.PI * 2);
-      ctx.stroke();
-    }
-    ctx.fillStyle = 'rgba(168, 85, 247, 0.4)';
-    ctx.beginPath();
-    ctx.ellipse(spotX, spotY, 28, 14, 0, 0, Math.PI * 2);
-    ctx.fill();
+      ctx.ellipse(spotX, spotY, 28, 14, 0, 0, Math.PI * 2);
+      ctx.fill();
 
-    // Slew Reticle
-    ctx.strokeStyle = '#a855f7';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(spotX - 50, spotY - 30, 100, 60);
-    ctx.fillStyle = '#a855f7';
-    const tag = `⛏️ CONDITION 2: DIGGING (-${cam.tunnelDepth}m | RADIUS: ${cam.tunnelRadius}m)`;
-    ctx.font = 'bold 10px monospace';
-    const tagW = ctx.measureText(tag).width;
-    ctx.fillRect(spotX - tagW / 2 - 4, spotY - 48, tagW + 8, 16);
-    ctx.fillStyle = '#ffffff';
-    ctx.fillText(tag, spotX - tagW / 2, spotY - 36);
+      // Slew Reticle
+      ctx.strokeStyle = '#a855f7';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(spotX - 50, spotY - 30, 100, 60);
+      ctx.fillStyle = '#a855f7';
+      const tag = `⛏️ CONDITION 2: DIGGING (-${cam.tunnelDepth || 8.4}m | RADIUS: ${cam.tunnelRadius || 74.6}m)`;
+      ctx.font = 'bold 10px monospace';
+      const tagW = ctx.measureText(tag).width;
+      ctx.fillRect(spotX - tagW / 2 - 4, spotY - 48, tagW + 8, 16);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(tag, spotX - tagW / 2, spotY - 36);
+    }
 
     // 6. Draw Targets (Condition 1 Human + Condition 3 Wildlife)
     cam.targets.forEach(target => {
