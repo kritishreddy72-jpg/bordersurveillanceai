@@ -143,9 +143,9 @@
             <div class="cam-radius-ring" id="camRing_CAM-04" style="top:74%; left:72%; width:86px; height:86px;"></div>
 
             <!-- Radar Blips -->
-            <div class="radar-blip human" style="top:40%; left:44%;" title="Human Intruder"></div>
-            <div class="radar-blip animal" style="top:27%; left:32%;" title="Wildlife"></div>
-            <div class="radar-blip tunnel" style="top:73%; left:70%;" title="Subsurface Digging"></div>
+            <div class="radar-blip human" id="radarBlipHuman" style="top:40%; left:44%; display:none;" title="Human Intruder"></div>
+            <div class="radar-blip animal" id="radarBlipAnimal" style="top:27%; left:32%; display:none;" title="Wildlife"></div>
+            <div class="radar-blip tunnel" id="radarBlipTunnel" style="top:73%; left:70%; display:none;" title="Subsurface Digging"></div>
           </div>
           
           <div style="display:flex; justify-content:space-between; width:100%; font-size:0.62rem; font-family:var(--font-mono); margin-top:6px; color:var(--text-dim);">
@@ -228,6 +228,9 @@
             </button>
             <button class="scenario-btn trigger-fog" id="btnSimFogStorm" style="grid-column: span 2;">
               <span>🌫️ 4. Fog &amp; Lightning AVF [CAM-03]</span>
+            </button>
+            <button class="scenario-btn" id="btnResetScenarios" style="grid-column: span 2; background:rgba(239, 68, 68, 0.12); border-color:rgba(239,68,68,0.4); color:#fca5a5;">
+              <span>⏹️ 5. Standby / Reset Scenarios</span>
             </button>
           </div>
         </div>
@@ -475,7 +478,7 @@
                   <span class="cam-id-tag" style="background:rgba(0,240,255,0.2); color:#fff;">🌟 CAM-MASTER</span>
                   <span class="cam-name-text">Unified Multi-Modal Border Hub (All 4 Conditions Active Simultaneously)</span>
                 </div>
-                <span class="card-badge" id="badge_cam_master" style="background:rgba(0,240,255,0.15); color:var(--accent-cyan);">ALL CONDITIONS ACTIVE</span>
+                <span class="card-badge" id="badge_cam_master" style="background:rgba(0,240,255,0.15); color:var(--accent-cyan);">STANDBY PATROL - SECURE</span>
               </div>
               
               <div class="video-viewport" id="masterAvfWrapper" style="aspect-ratio:16/9; max-height:480px;">
@@ -523,7 +526,7 @@
                   <span class="cam-id-tag">CAM-01</span>
                   <span class="cam-name-text">North Ridge Outpost</span>
                 </div>
-                <span class="card-badge" id="badge_cam1">MONITORING</span>
+                <span class="card-badge" id="badge_cam1">STANDBY PATROL</span>
               </div>
               <div class="video-viewport">
                 <canvas id="canvas_cam1" class="feed-canvas"></canvas>
@@ -538,7 +541,7 @@
                   <span class="cam-id-tag" style="color:var(--accent-red); border-color:rgba(239,68,68,0.4);">CAM-02</span>
                   <span class="cam-name-text">Canyon Ridge Pass</span>
                 </div>
-                <span class="card-badge" id="badge_cam2">MONITORING</span>
+                <span class="card-badge" id="badge_cam2">STANDBY PATROL</span>
               </div>
               <div class="video-viewport">
                 <canvas id="canvas_cam2" class="feed-canvas"></canvas>
@@ -568,7 +571,7 @@
                   <span class="cam-id-tag" style="color:var(--accent-purple); border-color:rgba(168,85,247,0.4);">CAM-04</span>
                   <span class="cam-name-text">East Subsurface Perimeter</span>
                 </div>
-                <span class="card-badge" id="badge_cam4">SEISMIC DAS ARMED</span>
+                <span class="card-badge" id="badge_cam4">SEISMIC DAS ARMED - SECURE</span>
               </div>
               <div class="video-viewport">
                 <canvas id="canvas_cam4" class="feed-canvas"></canvas>
