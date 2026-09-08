@@ -1,0 +1,36 @@
+﻿[build]
+  publish = frontend
+  command = "
+
+[[redirects]]
+ from = /overview
+ to = /overview.html
+ status = 200
+
+[[redirects]]
+ from = /future-tech
+ to = /future-tech.html
+ status = 200
+
+[[redirects]]
+ from = /login
+ to = /login.html
+ status = 200
+
+[[redirects]]
+ from = /presentation
+ to = /presentation.html
+ status = 200
+
+[[redirects]]
+ from = /*
+ to = /index.html
+ status = 200
+
+[[headers]]
+ for = /*
+ [headers.values]
+ X-Frame-Options = SAMEORIGIN
+ X-XSS-Protection = 1; mode=block
+ X-Content-Type-Options = nosniff
+ Access-Control-Allow-Origin = *
