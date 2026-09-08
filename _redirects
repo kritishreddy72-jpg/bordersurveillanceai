@@ -1,0 +1,7 @@
+﻿/               /frontend/index.html        200
+/overview       /frontend/overview.html     200
+/future-tech    /frontend/future-tech.html  200
+/login          /frontend/login.html        200
+/presentation   /frontend/presentation.html 200
+/css/*          /frontend/css/:splat        200
+/js/*           /frontend/js/:splat         200
